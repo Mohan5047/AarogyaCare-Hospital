@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "build": "echo 'Build completed successfully'",
     "dev": "node --watch server.js"
   },
   "engines": {

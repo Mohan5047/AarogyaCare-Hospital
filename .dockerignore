@@ -1,0 +1,8 @@
+node_modules
+hospital.db
+hospital.db-journal
+hospital.db-wal
+hospital.db-shm
+.git
+.gitignore
+README.md

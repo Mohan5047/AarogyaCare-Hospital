@@ -1,7 +1,12 @@
 const { DatabaseSync } = require('node:sqlite');
 const path = require('path');
+const fs = require('fs');
 
-const dbPath = path.join(__dirname, '..', '..', 'hospital.db');
+// Support writable /tmp directory for serverless (Vercel/AWS) or standard project root
+const dbPath = process.env.VERCEL || process.env.LAMBDA_TASK_ROOT
+  ? path.join('/tmp', 'hospital.db')
+  : path.join(__dirname, '..', '..', 'hospital.db');
+
 const db = new DatabaseSync(dbPath);
 
 // Enable foreign keys and initialize tables
