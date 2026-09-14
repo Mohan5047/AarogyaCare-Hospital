@@ -24,3 +24,6 @@ hospital.db-shm
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Exclude README
+README.md
