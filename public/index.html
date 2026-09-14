@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AarogyaCare GH | Government & General Hospital Appointment System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ==================== SPLASH SCREEN (INITIAL LOADER) ==================== -->
+  <div id="splash-screen">
+    <div class="splash-logo-wrap">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="48" height="48" rx="14" fill="#059669"/>
+        <path d="M24 11V37M11 24H37" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="36" cy="12" r="5.5" fill="#34d399"/>
+        <text x="36" y="14.5" font-size="6.5" font-weight="900" fill="#064e3b" text-anchor="middle" font-family="sans-serif">GH</text>
+      </svg>
+    </div>
+    <h1 class="splash-title">AarogyaCare <span style="background: var(--primary); color: white; padding: 0.2rem 0.6rem; border-radius: 8px; font-size: 1.5rem; vertical-align: middle;">GH</span></h1>
+    <p style="font-size: 1.15rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 0.35rem;">
+      Government & General Hospital (GH)
+    </p>
+    <div class="splash-badge">🇮🇳 Premier District GH & Multispeciality Healthcare • India</div>
+
+    <div class="splash-loader-bar">
+      <div class="splash-loader-progress"></div>
+    </div>
+    <div class="splash-status-text">
+      <span>🩺</span> <span>Connecting to GH hospital services...</span>
+    </div>
+  </div>
+
+  <!-- ==================== NAVIGATION BAR ==================== -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="brand" data-tab="home">
+        <!-- SVG Brand Logo with GH Badge -->
+        <svg class="brand-logo-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="12" fill="#059669"/>
+          <path d="M24 11V37M11 24H37" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="36" cy="12" r="5.5" fill="#34d399"/>
+          <text x="36" y="14.5" font-size="6.5" font-weight="900" fill="#064e3b" text-anchor="middle" font-family="sans-serif">GH</text>
+        </svg>
+        <div class="brand-info">
+          <h1>AarogyaCare <span style="background: var(--primary); color: white; padding: 0.1rem 0.45rem; border-radius: 6px; font-size: 0.78rem; vertical-align: middle; letter-spacing: 0.05em;">GH</span></h1>
+          <span>Government & General Hospital • India</span>
+        </div>
+      </div>
+
+      <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">☰</button>
+
+      <ul class="nav-links" id="nav-links">
+        <li><button class="nav-btn active" data-tab="home">Home</button></li>
+        <li><button class="nav-btn" data-tab="doctors">GH Specialists</button></li>
+        <li><button class="nav-btn" data-tab="lookup">My Bookings</button></li>
+        <li><button class="nav-btn" data-tab="admin">GH Admin</button></li>
+        <li><button class="nav-btn nav-cta" data-tab="booking">Book GH Appointment</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ==================== MAIN CONTENT WRAPPER ==================== -->
+  <main class="main-wrapper">
+
+    <!-- ==================== TAB 1: HOME ==================== -->
+    <div id="tab-home" class="tab-pane active">
+      <div class="hero">
+        <div class="hero-badge">🏥 24/7 Verified Healthcare Across India • District GH Network</div>
+        <h1 class="hero-title">Book Doctor Consultations at AarogyaCare GH</h1>
+        <p class="hero-subtitle">
+          Skip long GH OPD queues. Consult India's leading medical specialists from premier medical institutes (AIIMS, CMC, NIMHANS, PGIMER) at AarogyaCare Government & General Hospital (GH) with live slot availability, instant confirmation slips, and smart tracking.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-hero" data-tab="booking">
+            📅 Book An Appointment
+          </button>
+          <button class="btn-hero-outline" data-tab="doctors">
+            👨‍⚕️ View Specialists
+          </button>
+          <button class="btn-hero-outline" data-tab="lookup">
+            🔍 Track My Booking
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Stats Bar -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon-wrap stat-icon-green">👨‍⚕️</div>
+          <div>
+            <div class="stat-number" id="home-stat-doctors">9+</div>
+            <div class="stat-label">Senior Consultants</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-wrap stat-icon-teal">🏥</div>
+          <div>
+            <div class="stat-number" id="home-stat-dept">8</div>
+            <div class="stat-label">Super Specialties</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-wrap stat-icon-emerald">📋</div>
+          <div>
+            <div class="stat-number" id="home-stat-appts">0</div>
+            <div class="stat-label">Appointments Booked</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon-wrap stat-icon-amber">⭐</div>
+          <div>
+            <div class="stat-number" id="home-stat-rating">4.9 ★</div>
+            <div class="stat-label">Patient Satisfaction</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hospital Highlights -->
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Key Hospital Departments</h2>
+          <p class="section-desc">Consult with experienced department heads and specialized clinical physicians</p>
+        </div>
+        <button class="filter-pill active" data-tab="doctors">View All Doctors →</button>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; margin-bottom: 2.5rem;">
+        <div class="stat-card" style="cursor: pointer;" onclick="loadDoctorsView(1); switchTab('doctors');">
+          <div class="stat-icon-wrap stat-icon-green">❤️</div>
+          <div>
+            <strong style="font-size: 1.05rem;">Cardiology</strong>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">AIIMS cardiologist care, ECG & heart checks</div>
+          </div>
+        </div>
+        <div class="stat-card" style="cursor: pointer;" onclick="loadDoctorsView(2); switchTab('doctors');">
+          <div class="stat-icon-wrap stat-icon-teal">🧠</div>
+          <div>
+            <strong style="font-size: 1.05rem;">Neurology</strong>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Brain, spinal health & migraine therapy</div>
+          </div>
+        </div>
+        <div class="stat-card" style="cursor: pointer;" onclick="loadDoctorsView(3); switchTab('doctors');">
+          <div class="stat-icon-wrap stat-icon-amber">👶</div>
+          <div>
+            <strong style="font-size: 1.05rem;">Pediatrics</strong>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Infant, child health & vaccination clinics</div>
+          </div>
+        </div>
+        <div class="stat-card" style="cursor: pointer;" onclick="loadDoctorsView(4); switchTab('doctors');">
+          <div class="stat-icon-wrap stat-icon-emerald">🦴</div>
+          <div>
+            <strong style="font-size: 1.05rem;">Orthopedics</strong>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Joint replacement & fracture rehabilitation</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- All 28 Indian States & 8 UTs GH Network Showcase -->
+      <div class="section-header" style="margin-top: 2rem;">
+        <div>
+          <h2 class="section-title">AarogyaCare GH Network Across All Indian States</h2>
+          <p class="section-desc">District GH hospitals and online consultation coverage in all 28 States & 8 Union Territories</p>
+        </div>
+      </div>
+
+      <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.6rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-sm);">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.6rem;">
+          <div style="font-weight: 700; color: var(--primary-dark); font-size: 1.05rem;">
+            🇮🇳 Select Any State or UT to Book at Local District GH:
+          </div>
+          <span style="font-size: 0.8rem; background: var(--primary-light); color: var(--primary-dark); padding: 0.25rem 0.75rem; border-radius: 9999px; font-weight: 700;">
+            28 States • 8 Union Territories
+          </span>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+          <strong style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem;">
+            States (28):
+          </strong>
+          <div class="filter-pills" id="home-states-pills" style="margin-bottom: 1rem;">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <div>
+          <strong style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem;">
+            Union Territories (8):
+          </strong>
+          <div class="filter-pills" id="home-uts-pills" style="margin-bottom: 0;">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 2: SPECIALISTS & DOCTORS ==================== -->
+    <div id="tab-doctors" class="tab-pane">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Medical Specialists & Doctors</h2>
+          <p class="section-desc">Browse doctor profiles, Indian medical degrees, consultation fees (₹), and availability</p>
+        </div>
+      </div>
+
+      <!-- Department Filter Pills -->
+      <div class="filter-pills" id="doctors-dept-pills">
+        <!-- Dynamic department pills -->
+      </div>
+
+      <!-- Doctors Grid -->
+      <div class="doctors-grid" id="doctors-grid">
+        <!-- Dynamic Doctor Cards -->
+      </div>
+    </div>
+
+    <!-- ==================== TAB 3: BOOK APPOINTMENT WIZARD ==================== -->
+    <div id="tab-booking" class="tab-pane">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Schedule Doctor Consultation</h2>
+          <p class="section-desc">Select medical department, doctor, preferred date, and real-time available slot</p>
+        </div>
+      </div>
+
+      <div class="booking-container">
+        <!-- Form Left Side -->
+        <div class="booking-form-card">
+          <form id="booking-form" onsubmit="submitBooking(event)">
+
+            <!-- Step 1: Doctor & Department -->
+            <div style="margin-bottom: 1.8rem;">
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span>1️⃣</span> Select Department & Doctor
+              </h3>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="book-dept-select">Medical Department <span class="req">*</span></label>
+                  <select id="book-dept-select" class="form-select" onchange="onDepartmentChange(this.value)" required>
+                    <option value="">-- Choose Department --</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="book-doc-select">Doctor / Specialist <span class="req">*</span></label>
+                  <select id="book-doc-select" class="form-select" onchange="onDoctorChange(this.value)" disabled required>
+                    <option value="">-- Choose Department First --</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: Date & Available Time Slot -->
+            <div style="margin-bottom: 1.8rem;">
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span>2️⃣</span> Select Appointment Date & Time Slot
+              </h3>
+
+              <div class="form-group">
+                <label class="form-label" for="book-date-input">Appointment Date <span class="req">*</span></label>
+                <input type="date" id="book-date-input" class="form-input" onchange="onDateChange(this.value)" required>
+                <small style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem; display: block;">
+                  Appointments can be booked up to 30 days in advance.
+                </small>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Available Time Slots <span class="req">*</span></label>
+                <div class="slots-container" id="slots-container">
+                  <div style="grid-column: 1/-1; text-align: center; color: var(--text-light); padding: 1rem;">
+                    Please select a doctor and date to check open slots
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3: Patient Information -->
+            <div style="margin-bottom: 1.8rem;">
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span>3️⃣</span> Patient Information
+              </h3>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="patient-name">Patient Full Name <span class="req">*</span></label>
+                  <input type="text" id="patient-name" class="form-input" placeholder="e.g. Ramesh Chandra" required>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label class="form-label" for="patient-age">Age <span class="req">*</span></label>
+                    <input type="number" id="patient-age" class="form-input" placeholder="e.g. 35" min="1" max="120" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="patient-gender">Gender <span class="req">*</span></label>
+                    <select id="patient-gender" class="form-select" required>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="patient-phone">Mobile Number (India) <span class="req">*</span></label>
+                  <input type="tel" id="patient-phone" class="form-input" placeholder="e.g. 9876543210" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="patient-email">Email Address <span class="req">*</span></label>
+                  <input type="email" id="patient-email" class="form-input" placeholder="e.g. ramesh@example.com" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="patient-state">State / Union Territory (India) <span class="req">*</span></label>
+                <select id="patient-state" class="form-select" onchange="onStateChange(this.value)" required>
+                  <option value="">-- Choose Your State / UT --</option>
+                  <optgroup label="States (28)">
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                  </optgroup>
+                  <optgroup label="Union Territories (8)">
+                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                    <option value="Delhi (NCT)" selected>Delhi (NCT)</option>
+                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                    <option value="Ladakh">Ladakh</option>
+                    <option value="Lakshadweep">Lakshadweep</option>
+                    <option value="Puducherry">Puducherry</option>
+                  </optgroup>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="patient-symptoms">Symptoms / Reason for Consultation</label>
+                <textarea id="patient-symptoms" class="form-textarea" rows="2" placeholder="Briefly describe what health symptoms or concerns you are experiencing..."></textarea>
+              </div>
+            </div>
+
+            <button type="submit" id="btn-confirm-booking" class="btn-submit-booking" disabled>
+              Confirm & Book Appointment
+            </button>
+          </form>
+        </div>
+
+        <!-- Booking Summary Sidebar Right -->
+        <div>
+          <div class="booking-summary-card">
+            <div class="summary-header">
+              <h3>Appointment Summary</h3>
+              <p style="font-size: 0.82rem; color: var(--text-muted);">Review details before booking</p>
+            </div>
+
+            <ul class="summary-list">
+              <li class="summary-item">
+                <span>Doctor:</span>
+                <span id="sum-doc-name">Not selected</span>
+              </li>
+              <li class="summary-item">
+                <span>Department:</span>
+                <span id="sum-dept-name">Not selected</span>
+              </li>
+              <li class="summary-item">
+                <span>Appointment Date:</span>
+                <span id="sum-date">Not selected</span>
+              </li>
+              <li class="summary-item">
+                <span>Time Slot:</span>
+                <span id="sum-slot">Not selected</span>
+              </li>
+              <li class="summary-item">
+                <span>Patient State:</span>
+                <span id="sum-state">Delhi (NCT)</span>
+              </li>
+              <li class="summary-item">
+                <span>Hospital Branch:</span>
+                <span>District GH Medical Campus, India</span>
+              </li>
+            </ul>
+
+            <div class="summary-total">
+              <span class="total-label">Consultation Fee:</span>
+              <span class="total-val" id="sum-fee">₹0</span>
+            </div>
+
+            <div style="background: var(--surface-alt); padding: 0.9rem; border-radius: var(--radius-sm); font-size: 0.82rem; color: var(--text-muted); border: 1px solid var(--border);">
+              🔒 <strong>Guaranteed Slot:</strong> Double-booking is strictly prohibited. Your chosen slot is secured immediately upon confirmation.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 4: PATIENT PORTAL (MY BOOKINGS) ==================== -->
+    <div id="tab-lookup" class="tab-pane">
+      <div class="section-header" style="text-align: center; display: block;">
+        <h2 class="section-title">Patient Portal & Appointment Lookup</h2>
+        <p class="section-desc">Search and manage your appointments using your Reference Code or Registered Mobile Number</p>
+      </div>
+
+      <div class="lookup-box">
+        <label class="form-label" style="text-align: left;" for="lookup-query-input">
+          Enter Reference Code (e.g. APT-2026-1001) or 10-Digit Mobile Number
+        </label>
+        <form onsubmit="searchAppointments(event)" class="lookup-input-wrap">
+          <input
+            type="text"
+            id="lookup-query-input"
+            class="form-input"
+            placeholder="e.g. 9876543210 or APT-2026-1001"
+            required
+          >
+          <button type="submit" class="btn-lookup">
+            🔍 Find Booking
+          </button>
+        </form>
+      </div>
+
+      <!-- Lookup Results Container -->
+      <div id="lookup-results-container" style="max-width: 800px; margin: 0 auto;">
+        <!-- Results or placeholder rendered here -->
+      </div>
+    </div>
+
+    <!-- ==================== TAB 5: ADMIN & DOCTOR DASHBOARD ==================== -->
+    <div id="tab-admin" class="tab-pane">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Hospital Administration & Doctor Console</h2>
+          <p class="section-desc">Real-time patient bookings, department analytics, status management, and directory control</p>
+        </div>
+        <button class="btn-hero" style="font-size: 0.88rem; padding: 0.65rem 1.1rem;" onclick="openAddDoctorModal()">
+          ➕ Add New Doctor
+        </button>
+      </div>
+
+      <!-- Admin KPI Stats -->
+      <div class="admin-stats-row">
+        <div class="admin-card">
+          <div class="stat-label">Total Bookings</div>
+          <div class="stat-number" id="adm-total-appts" style="color: var(--primary);">0</div>
+        </div>
+        <div class="admin-card">
+          <div class="stat-label">Today's Visits</div>
+          <div class="stat-number" id="adm-today-appts" style="color: var(--secondary);">0</div>
+        </div>
+        <div class="admin-card">
+          <div class="stat-label">Confirmed</div>
+          <div class="stat-number" id="adm-confirmed-appts" style="color: var(--success);">0</div>
+        </div>
+        <div class="admin-card">
+          <div class="stat-label">Completed</div>
+          <div class="stat-number" id="adm-completed-appts" style="color: #0d9488;">0</div>
+        </div>
+        <div class="admin-card">
+          <div class="stat-label">Total Revenue</div>
+          <div class="stat-number" id="adm-revenue" style="color: var(--primary-dark);">₹0</div>
+        </div>
+      </div>
+
+      <!-- Filter Controls Bar -->
+      <div class="admin-filter-bar">
+        <div>
+          <input
+            type="text"
+            id="admin-search-input"
+            class="form-input"
+            placeholder="Search patient name, phone, ref, or doctor..."
+            oninput="onAdminSearchInput(this.value)"
+          >
+        </div>
+        <div>
+          <select id="admin-status-filter" class="form-select" onchange="onAdminStatusFilter(this.value)">
+            <option value="">All Statuses</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+        <div>
+          <input
+            type="date"
+            id="admin-date-filter"
+            class="form-input"
+            onchange="onAdminDateFilter(this.value)"
+          >
+        </div>
+        <div>
+          <button class="filter-pill" onclick="clearAdminFilters()">Reset Filters</button>
+        </div>
+      </div>
+
+      <!-- Appointments Data Table -->
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Reference No</th>
+              <th>Patient</th>
+              <th>Doctor / Specialty</th>
+              <th>Date & Slot</th>
+              <th>Fee (₹)</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-table-body">
+            <!-- Dynamic Table Rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== CONFIRMATION MODAL & PRINTABLE SLIP ==================== -->
+  <div class="modal-overlay" id="confirmation-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>🎉 Appointment Confirmed!</h3>
+        <button class="modal-close" onclick="closeConfirmationModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="receipt-card">
+          <div class="receipt-header">
+            <!-- Logo inside receipt -->
+            <div style="display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-bottom: 0.5rem;">
+              <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+                <rect width="48" height="48" rx="10" fill="#059669"/>
+                <path d="M24 11V37M11 24H37" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="36" cy="12" r="5.5" fill="#34d399"/>
+                <text x="36" y="14.5" font-size="6.5" font-weight="900" fill="#064e3b" text-anchor="middle" font-family="sans-serif">GH</text>
+              </svg>
+              <h2 style="color: var(--primary-dark); font-size: 1.35rem; font-weight: 800; margin: 0;">AarogyaCare GH Medical Center</h2>
+            </div>
+            <p style="font-size: 0.82rem; color: var(--text-muted);">Official GH Consultation Booking Slip • National Healthcare Services, India</p>
+            <div class="receipt-token" id="receipt-token">APT-2026-0000</div>
+            <div style="font-size: 0.76rem; color: var(--success); font-weight: 700; text-transform: uppercase;">● Guaranteed Slot Confirmed</div>
+          </div>
+
+          <div class="receipt-row">
+            <span>Patient:</span>
+            <span id="receipt-patient">Patient Name</span>
+          </div>
+          <div class="receipt-row">
+            <span>State / UT:</span>
+            <span id="receipt-state">Delhi (NCT)</span>
+          </div>
+          <div class="receipt-row">
+            <span>Contact Info:</span>
+            <span id="receipt-contact">Phone & Email</span>
+          </div>
+          <div class="receipt-row">
+            <span>Consulting Doctor:</span>
+            <span id="receipt-doctor">Dr. Name</span>
+          </div>
+          <div class="receipt-row">
+            <span>Department:</span>
+            <span id="receipt-specialty">Specialty</span>
+          </div>
+          <div class="receipt-row">
+            <span>Scheduled Date & Time:</span>
+            <span id="receipt-date-time" style="color: var(--primary-dark); font-weight: 700;">Date at Slot</span>
+          </div>
+          <div class="receipt-row">
+            <span>Reason for Visit:</span>
+            <span id="receipt-symptoms">Checkup</span>
+          </div>
+          <div class="receipt-row" style="border-top: 1px dashed var(--border); padding-top: 0.55rem; margin-top: 0.55rem;">
+            <span>Consultation Fee:</span>
+            <span id="receipt-fee" style="color: var(--primary); font-size: 1.2rem; font-weight: 800;">₹0</span>
+          </div>
+          <div class="receipt-row">
+            <span>Status:</span>
+            <span id="receipt-status" style="color: var(--success); font-weight: 700;">Confirmed</span>
+          </div>
+        </div>
+
+        <p style="font-size: 0.82rem; color: var(--text-muted); text-align: center;">
+          Please arrive at the hospital reception 15 minutes prior to your consultation time with this reference slip.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-hero-outline" style="color: var(--primary-dark); border-color: var(--border); background: white;" onclick="window.print()">
+          🖨️ Print / Save Slip
+        </button>
+        <button class="btn-hero" onclick="closeConfirmationModal(); switchTab('lookup');">
+          View in My Bookings
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ADD DOCTOR MODAL ==================== -->
+  <div class="modal-overlay" id="add-doctor-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>➕ Add New Doctor</h3>
+        <button class="modal-close" onclick="closeAddDoctorModal()">&times;</button>
+      </div>
+      <form id="add-doctor-form" onsubmit="submitNewDoctor(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="new-doc-name">Doctor Full Name <span class="req">*</span></label>
+            <input type="text" id="new-doc-name" class="form-input" placeholder="e.g. Dr. Harish Chandra" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="new-doc-dept">Department <span class="req">*</span></label>
+              <select id="new-doc-dept" class="form-select" required>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="new-doc-specialty">Specialty <span class="req">*</span></label>
+              <input type="text" id="new-doc-specialty" class="form-input" placeholder="e.g. Senior Cardiologist" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="new-doc-qual">Medical Qualifications <span class="req">*</span></label>
+              <input type="text" id="new-doc-qual" class="form-input" placeholder="e.g. MBBS, MD, DM (AIIMS)" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="new-doc-exp">Experience (Years) <span class="req">*</span></label>
+              <input type="number" id="new-doc-exp" class="form-input" value="10" min="1" max="50" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="new-doc-fee">Consultation Fee (₹) <span class="req">*</span></label>
+              <input type="number" id="new-doc-fee" class="form-input" value="700" min="100" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="new-doc-days">Working Days <span class="req">*</span></label>
+              <input type="text" id="new-doc-days" class="form-input" value="Mon, Tue, Wed, Thu, Fri" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="new-doc-start">Shift Start <span class="req">*</span></label>
+              <input type="time" id="new-doc-start" class="form-input" value="09:00" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="new-doc-end">Shift End <span class="req">*</span></label>
+              <input type="time" id="new-doc-end" class="form-input" value="17:00" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="new-doc-email">Email</label>
+              <input type="email" id="new-doc-email" class="form-input" placeholder="doctor@aarogyacare.in">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="new-doc-phone">Phone</label>
+              <input type="tel" id="new-doc-phone" class="form-input" placeholder="+91 98000 00000">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="filter-pill" onclick="closeAddDoctorModal()">Cancel</button>
+          <button type="submit" class="btn-hero">Save Doctor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Client JavaScript Modules -->
+  <script src="js/app.js"></script>
+  <script src="js/booking.js"></script>
+  <script src="js/patientPortal.js"></script>
+  <script src="js/adminDashboard.js"></script>
+</body>
+</html>

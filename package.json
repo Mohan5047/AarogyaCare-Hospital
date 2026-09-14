@@ -1,0 +1,28 @@
+{
+  "name": "hospital-booking-system",
+  "version": "1.0.0",
+  "description": "AarogyaCare GH - Hospital Appointment Booking System with Node.js, Express, SQLite, and responsive healthcare UI",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "keywords": [
+    "hospital",
+    "appointment-booking",
+    "healthcare",
+    "express",
+    "sqlite",
+    "india"
+  ],
+  "author": "Mohan",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}
