@@ -39,6 +39,11 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Explicit root route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // Fallback for Single Page Application
 app.use((req, res, next) => {
   if (req.method === 'GET' && !req.path.startsWith('/api')) {
@@ -56,9 +61,10 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start Server with 0.0.0.0 binding for seamless cloud deployment (Render/Railway/Docker/AWS)
-const server = app.listen(PORT, '0.0.0.0', () => {
-  console.log(`
+// Start Server with 0.0.0.0 binding for standalone cloud deployments (Render/Railway/Docker/Local)
+if (!process.env.VERCEL) {
+  const server = app.listen(PORT, '0.0.0.0', () => {
+    console.log(`
   ======================================================
   🏥 AarogyaCare GH Appointment Booking System is Live!
   ------------------------------------------------------
@@ -66,16 +72,20 @@ const server = app.listen(PORT, '0.0.0.0', () => {
   📡 API Base URL    : http://localhost:${PORT}/api
   📊 Health Check    : http://localhost:${PORT}/api/health
   ======================================================
-  `);
-});
+    `);
+  });
 
-// Graceful shutdown handling for container and PaaS environments
-process.on('SIGTERM', () => {
-  console.log('SIGTERM received: closing HTTP server...');
-  server.close(() => process.exit(0));
-});
+  // Graceful shutdown handling for container and PaaS environments
+  process.on('SIGTERM', () => {
+    console.log('SIGTERM received: closing HTTP server...');
+    server.close(() => process.exit(0));
+  });
 
-process.on('SIGINT', () => {
-  console.log('SIGINT received: closing HTTP server...');
-  server.close(() => process.exit(0));
-});
+  process.on('SIGINT', () => {
+    console.log('SIGINT received: closing HTTP server...');
+    server.close(() => process.exit(0));
+  });
+}
+
+module.exports = app;
+
