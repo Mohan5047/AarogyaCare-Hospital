@@ -1253,3 +1253,86 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================================================
+   VISUAL CONSULTATION TRACKING TIMELINE
+========================================================= */
+.tracking-timeline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1.2rem;
+  padding-top: 1.1rem;
+  border-top: 1px dashed var(--border);
+  position: relative;
+}
+
+.timeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  flex: 1;
+  position: relative;
+  text-align: center;
+}
+
+.timeline-step::before {
+  content: '';
+  position: absolute;
+  top: 13px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: var(--border);
+  z-index: 1;
+}
+
+.timeline-step:last-child::before {
+  display: none;
+}
+
+.timeline-step.completed::before {
+  background: var(--primary);
+}
+
+.timeline-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  position: relative;
+  z-index: 2;
+  transition: var(--transition);
+}
+
+.timeline-step.completed .timeline-circle {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.timeline-step.active .timeline-circle {
+  background: #fef3c7;
+  border-color: #d97706;
+  color: #d97706;
+  box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.2);
+}
+
+.timeline-step.completed .step-text {
+  color: var(--primary-dark);
+}
+
+.timeline-step.active .step-text {
+  color: #d97706;
+}

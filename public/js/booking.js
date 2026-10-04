@@ -358,6 +358,71 @@ function startBookingWithDoctor(doctorId, deptId) {
   }, 100);
 }
 
+// Render Doctor cards
+function renderDoctorCards(doctorsList) {
+  const grid = document.getElementById('doctors-grid');
+  if (!grid) return;
+
+  if (!doctorsList || doctorsList.length === 0) {
+    grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted); background: white; border-radius: 12px; border: 1px dashed var(--border);">No specialists match your search criteria. Try a different term or department.</div>';
+    return;
+  }
+
+  grid.innerHTML = doctorsList.map(doc => `
+    <div class="doctor-card">
+      <div class="doctor-header">
+        <img src="${doc.avatar_url}" alt="${doc.name}" class="doctor-avatar">
+        <div class="doctor-meta">
+          <h3>${doc.name}</h3>
+          <span class="doctor-specialty">${doc.specialty}</span>
+          <div style="font-size: 0.8rem; color: #f59e0b; margin-top: 0.2rem; font-weight: 700;">★ ${doc.rating} Rating</div>
+        </div>
+      </div>
+      <div class="doctor-body">
+        <div class="doc-info-row">
+          <span>🎓</span>
+          <span><strong>Degree:</strong> ${doc.qualification}</span>
+        </div>
+        <div class="doc-info-row">
+          <span>⏱️</span>
+          <span><strong>Experience:</strong> ${doc.experience_years} Years</span>
+        </div>
+        <div class="doc-info-row">
+          <span>📅</span>
+          <span><strong>Days:</strong> ${doc.available_days}</span>
+        </div>
+        <div class="doc-info-row">
+          <span>⏰</span>
+          <span><strong>Hours:</strong> ${doc.time_start} - ${doc.time_end}</span>
+        </div>
+      </div>
+      <div class="doctor-footer">
+        <div class="doc-fee">₹${doc.fee} <span>/ visit</span></div>
+        <button class="btn-book-doc" onclick="startBookingWithDoctor(${doc.id}, ${doc.department_id})">Book Visit</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Live real-time doctor search filter
+function filterDoctorsBySearch(term) {
+  const cleanTerm = (term || '').toLowerCase().trim();
+  if (!cleanTerm) {
+    renderDoctorCards(AppState.currentDoctorsList || AppState.allDoctors || []);
+    return;
+  }
+
+  const source = AppState.currentDoctorsList || AppState.allDoctors || [];
+  const filtered = source.filter(doc =>
+    (doc.name && doc.name.toLowerCase().includes(cleanTerm)) ||
+    (doc.specialty && doc.specialty.toLowerCase().includes(cleanTerm)) ||
+    (doc.qualification && doc.qualification.toLowerCase().includes(cleanTerm)) ||
+    (doc.department_name && doc.department_name.toLowerCase().includes(cleanTerm))
+  );
+
+  renderDoctorCards(filtered);
+}
+
 // Load Doctors Directory View
 async function loadDoctorsView(filterDeptId = null) {
   try {
@@ -368,6 +433,10 @@ async function loadDoctorsView(filterDeptId = null) {
 
     const deptData = await deptRes.json();
     const docData = await docRes.json();
+
+    // Reset search input if exists
+    const searchInput = document.getElementById('doctor-search-input');
+    if (searchInput) searchInput.value = '';
 
     // Render department pills
     const pillsContainer = document.getElementById('doctors-dept-pills');
@@ -382,48 +451,10 @@ async function loadDoctorsView(filterDeptId = null) {
       });
     }
 
-    // Render Doctor cards
-    const grid = document.getElementById('doctors-grid');
-    if (grid && docData.success) {
-      if (docData.data.length === 0) {
-        grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">No doctors found for the selected department.</div>';
-        return;
-      }
-
-      grid.innerHTML = docData.data.map(doc => `
-        <div class="doctor-card">
-          <div class="doctor-header">
-            <img src="${doc.avatar_url}" alt="${doc.name}" class="doctor-avatar">
-            <div class="doctor-meta">
-              <h3>${doc.name}</h3>
-              <span class="doctor-specialty">${doc.specialty}</span>
-              <div style="font-size: 0.8rem; color: #f59e0b; margin-top: 0.2rem; font-weight: 700;">★ ${doc.rating} Rating</div>
-            </div>
-          </div>
-          <div class="doctor-body">
-            <div class="doc-info-row">
-              <span>🎓</span>
-              <span><strong>Degree:</strong> ${doc.qualification}</span>
-            </div>
-            <div class="doc-info-row">
-              <span>⏱️</span>
-              <span><strong>Experience:</strong> ${doc.experience_years} Years</span>
-            </div>
-            <div class="doc-info-row">
-              <span>📅</span>
-              <span><strong>Days:</strong> ${doc.available_days}</span>
-            </div>
-            <div class="doc-info-row">
-              <span>⏰</span>
-              <span><strong>Hours:</strong> ${doc.time_start} - ${doc.time_end}</span>
-            </div>
-          </div>
-          <div class="doctor-footer">
-            <div class="doc-fee">₹${doc.fee} <span>/ visit</span></div>
-            <button class="btn-book-doc" onclick="startBookingWithDoctor(${doc.id}, ${doc.department_id})">Book Visit</button>
-          </div>
-        </div>
-      `).join('');
+    if (docData.success) {
+      if (!filterDeptId) AppState.allDoctors = docData.data;
+      AppState.currentDoctorsList = docData.data;
+      renderDoctorCards(docData.data);
     }
   } catch (err) {
     showToast('Failed to load doctors list', 'error');
