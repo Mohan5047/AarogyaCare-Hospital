@@ -2,6 +2,15 @@
 
 window.lastLookupAppointments = [];
 
+// Helper to quickly fill sample search query
+function setLookupQuery(query) {
+  const input = document.getElementById('lookup-query-input');
+  if (input) {
+    input.value = query;
+    searchAppointments();
+  }
+}
+
 async function searchAppointments(e) {
   if (e) e.preventDefault();
 
@@ -14,7 +23,7 @@ async function searchAppointments(e) {
   }
 
   const resultsContainer = document.getElementById('lookup-results-container');
-  resultsContainer.innerHTML = '<div style="text-align:center; padding: 2rem; color: var(--text-muted);">Searching your hospital records...</div>';
+  resultsContainer.innerHTML = '<div style="text-align:center; padding: 2.5rem; color: var(--text-muted); background: white; border-radius: 12px; border: 1px solid var(--border);">Searching AarogyaCare GH records...</div>';
 
   try {
     const res = await fetch(`/api/appointments/lookup?query=${encodeURIComponent(term)}`);
@@ -80,6 +89,7 @@ function renderPatientApptCard(appt) {
           <div>📍 <strong>State / Region:</strong> <span style="color: var(--primary-dark); font-weight: 700;">${appt.patient_state || 'Delhi (NCT)'}</span></div>
           <div>📞 <strong>Contact:</strong> ${appt.patient_phone}</div>
           <div>📋 <strong>Symptoms / Reason:</strong> ${appt.symptoms || 'General Checkup'}</div>
+          <div>🏛️ <strong>OPD Room:</strong> Block A - Room 10${appt.doctor_id || 1}</div>
         </div>
       </div>
 
@@ -100,7 +110,7 @@ function renderPatientApptCard(appt) {
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end;">
           <button
             class="btn-hero-outline"
-            style="padding: 0.4rem 0.85rem; font-size: 0.82rem; color: var(--primary-dark); border-color: var(--border); background: white;"
+            style="padding: 0.45rem 0.95rem; font-size: 0.82rem; color: var(--primary-dark); border-color: var(--border); background: white;"
             onclick="viewAppointmentSlip(${appt.id})"
             title="View or print official receipt"
           >
@@ -160,12 +170,11 @@ async function cancelPatientAppointment(id, refNo) {
     const res = await fetch(`/api/appointments/${id}`, {
       method: 'DELETE'
     });
-
     const data = await res.json();
+
     if (data.success) {
-      showToast('Appointment successfully cancelled.', 'success');
-      // Re-trigger search to reflect updated status
-      searchAppointments();
+      showToast('Appointment successfully cancelled', 'info');
+      searchAppointments(); // Refresh lookup
     } else {
       showToast(data.message || 'Failed to cancel appointment', 'error');
     }

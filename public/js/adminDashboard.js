@@ -63,7 +63,7 @@ async function loadAdminAppointments() {
             <small style="color: var(--text-light);">${appt.created_at ? appt.created_at.split(' ')[0] : ''}</small>
           </td>
           <td>
-            <strong>${appt.patient_name}</strong> (${appt.patient_age}y)<br>
+            <strong>${appt.patient_name}</strong> (${appt.patient_age}y, ${appt.patient_gender})<br>
             <small style="color: var(--text-muted);">${appt.patient_phone} • <span style="color: var(--primary-dark); font-weight: 600;">${appt.patient_state || 'India'}</span></small>
           </td>
           <td>
@@ -168,6 +168,54 @@ function clearAdminFilters() {
   document.getElementById('admin-date-filter').value = '';
   adminFilters = { search: '', status: '', date: '' };
   loadAdminAppointments();
+}
+
+// Export / Print current appointments roster to CSV
+function exportAdminTable() {
+  const tbody = document.getElementById('admin-table-body');
+  if (!tbody || tbody.innerText.includes('No appointment records')) {
+    showToast('No appointment records to export', 'error');
+    return;
+  }
+
+  try {
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    if (rows.length === 0) {
+      showToast('No records available to export', 'error');
+      return;
+    }
+
+    let csvContent = 'data:text/csv;charset=utf-8,';
+    csvContent += 'Reference No,Patient Name,Phone,State,Doctor,Department,Date,Time,Fee (INR),Status\n';
+
+    rows.forEach(r => {
+      const cols = r.querySelectorAll('td');
+      if (cols.length >= 6) {
+        const ref = cols[0].querySelector('strong')?.textContent || '';
+        const patientFull = cols[1].querySelector('strong')?.textContent || '';
+        const contactState = cols[1].querySelector('small')?.textContent || '';
+        const docName = cols[2].querySelector('strong')?.textContent || '';
+        const dept = cols[2].querySelector('small')?.textContent || '';
+        const date = cols[3].querySelector('div:first-child')?.textContent?.replace('📅', '').trim() || '';
+        const time = cols[3].querySelector('div:last-child')?.textContent?.replace('⏰', '').trim() || '';
+        const fee = cols[4].querySelector('strong')?.textContent?.replace('₹', '').trim() || '';
+        const status = cols[5].querySelector('select')?.value || '';
+
+        csvContent += `"${ref}","${patientFull}","${contactState}","${docName}","${dept}","${date}","${time}","${fee}","${status}"\n`;
+      }
+    });
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `AarogyaCare_GH_Roster_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast('Appointment roster exported to CSV successfully', 'success');
+  } catch (err) {
+    showToast('Failed to export roster', 'error');
+  }
 }
 
 // Modal: Add New Doctor

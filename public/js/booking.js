@@ -13,6 +13,31 @@ let bookingData = {
 async function initBookingWizard() {
   await loadDepartmentsDropdown();
   setupDatePicker();
+  updateBookingStepper();
+}
+
+// Update 3-step visual stepper
+function updateBookingStepper() {
+  const step1 = document.getElementById('step-ind-1');
+  const step2 = document.getElementById('step-ind-2');
+  const step3 = document.getElementById('step-ind-3');
+
+  if (!step1 || !step2 || !step3) return;
+
+  step1.className = 'stepper-step';
+  step2.className = 'stepper-step';
+  step3.className = 'stepper-step';
+
+  if (!bookingData.doctorId) {
+    step1.classList.add('active');
+  } else if (!bookingData.timeSlot) {
+    step1.classList.add('completed');
+    step2.classList.add('active');
+  } else {
+    step1.classList.add('completed');
+    step2.classList.add('completed');
+    step3.classList.add('active');
+  }
 }
 
 // Load Departments into dropdown
@@ -73,6 +98,7 @@ async function onDepartmentChange(deptId) {
   if (slotsBox) slotsBox.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-light); padding: 1rem;">Select doctor and date to view slots</div>';
 
   updateSummaryCard();
+  updateBookingStepper();
 
   if (!deptId) return;
 
@@ -99,6 +125,7 @@ async function onDoctorChange(doctorId) {
     bookingData.doctorId = null;
     bookingData.doctorObj = null;
     updateSummaryCard();
+    updateBookingStepper();
     return;
   }
 
@@ -111,6 +138,7 @@ async function onDoctorChange(doctorId) {
       bookingData.fee = data.data.fee;
 
       updateSummaryCard();
+      updateBookingStepper();
 
       // If date is already chosen, reload slots
       const dateInput = document.getElementById('book-date-input');
@@ -128,6 +156,7 @@ function onDateChange(dateStr) {
   bookingData.date = dateStr;
   bookingData.timeSlot = '';
   updateSummaryCard();
+  updateBookingStepper();
 
   if (bookingData.doctorId && dateStr) {
     loadDoctorSlots(bookingData.doctorId, dateStr);
@@ -181,6 +210,7 @@ async function loadDoctorSlots(doctorId, dateStr) {
         btn.classList.add('selected');
         bookingData.timeSlot = slot.time;
         updateSummaryCard();
+        updateBookingStepper();
       });
 
       container.appendChild(btn);
@@ -306,6 +336,7 @@ async function submitBooking(e) {
     bookingData.date = '';
     document.getElementById('book-doc-select').disabled = true;
     updateSummaryCard();
+    updateBookingStepper();
 
   } catch (err) {
     showToast('Network error while booking appointment', 'error');
@@ -327,6 +358,12 @@ function showConfirmationModal(appointment) {
   document.getElementById('receipt-contact').textContent = `${appointment.patient_phone} | ${appointment.patient_email}`;
   document.getElementById('receipt-doctor').textContent = appointment.doctor_name;
   document.getElementById('receipt-specialty').textContent = appointment.specialty;
+
+  const roomEl = document.getElementById('receipt-room');
+  if (roomEl) {
+    roomEl.textContent = `Block A - Room 10${appointment.doctor_id || 1}`;
+  }
+
   document.getElementById('receipt-date-time').textContent = `${appointment.appointment_date} at ${appointment.appointment_time}`;
   document.getElementById('receipt-symptoms').textContent = appointment.symptoms || 'General Consultation';
   document.getElementById('receipt-fee').textContent = `₹${appointment.fee}`;
@@ -371,11 +408,21 @@ function renderDoctorCards(doctorsList) {
   grid.innerHTML = doctorsList.map(doc => `
     <div class="doctor-card">
       <div class="doctor-header">
-        <img src="${doc.avatar_url}" alt="${doc.name}" class="doctor-avatar">
+        <div class="doctor-avatar-wrap">
+          <img
+            src="${doc.avatar_url}"
+            alt="${doc.name}"
+            class="doctor-avatar"
+            onerror="this.src='https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80&w=300'"
+          >
+          <div class="doc-status-dot" title="Available for OPD"></div>
+        </div>
         <div class="doctor-meta">
           <h3>${doc.name}</h3>
           <span class="doctor-specialty">${doc.specialty}</span>
-          <div style="font-size: 0.8rem; color: #f59e0b; margin-top: 0.2rem; font-weight: 700;">★ ${doc.rating} Rating</div>
+          <div>
+            <span class="doc-badge-verified">✓ GH Council Verified</span>
+          </div>
         </div>
       </div>
       <div class="doctor-body">
@@ -385,15 +432,18 @@ function renderDoctorCards(doctorsList) {
         </div>
         <div class="doc-info-row">
           <span>⏱️</span>
-          <span><strong>Experience:</strong> ${doc.experience_years} Years</span>
+          <span><strong>Experience:</strong> ${doc.experience_years} Years Active Practice</span>
         </div>
         <div class="doc-info-row">
           <span>📅</span>
-          <span><strong>Days:</strong> ${doc.available_days}</span>
+          <span><strong>OPD Days:</strong> ${doc.available_days}</span>
         </div>
         <div class="doc-info-row">
           <span>⏰</span>
-          <span><strong>Hours:</strong> ${doc.time_start} - ${doc.time_end}</span>
+          <span><strong>Timings:</strong> ${doc.time_start} - ${doc.time_end}</span>
+        </div>
+        <div>
+          <span class="doc-room-tag">🏛️ OPD Block A • Room 10${doc.id}</span>
         </div>
       </div>
       <div class="doctor-footer">

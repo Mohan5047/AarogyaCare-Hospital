@@ -195,6 +195,7 @@ function seedData() {
       patient_gender: 'Male',
       patient_phone: '9876543210',
       patient_email: 'arun.kumar@gmail.com',
+      patient_state: 'Maharashtra',
       appointment_date: today,
       appointment_time: '09:30 AM',
       symptoms: 'Mild chest tightness after climbing stairs and routine cardiac review.',
@@ -208,6 +209,7 @@ function seedData() {
       patient_gender: 'Female',
       patient_phone: '9876543211',
       patient_email: 'pooja.iyer@yahoo.co.in',
+      patient_state: 'Tamil Nadu',
       appointment_date: today,
       appointment_time: '10:30 AM',
       symptoms: 'Recurrent severe migraines and sensitivity to bright lights.',
@@ -221,6 +223,7 @@ function seedData() {
       patient_gender: 'Male',
       patient_phone: '9876543212',
       patient_email: 'sunil.patel@gmail.com',
+      patient_state: 'Gujarat',
       appointment_date: today,
       appointment_time: '11:00 AM',
       symptoms: 'Mild fever, dry cough, and 5-year developmental vaccination check.',
@@ -234,6 +237,7 @@ function seedData() {
       patient_gender: 'Female',
       patient_phone: '9876543213',
       patient_email: 'lakshmi.n@outlook.com',
+      patient_state: 'Karnataka',
       appointment_date: yesterday,
       appointment_time: '02:00 PM',
       symptoms: 'Knee joint pain and stiffness when walking.',
@@ -247,6 +251,7 @@ function seedData() {
       patient_gender: 'Male',
       patient_phone: '9876543214',
       patient_email: 'rohan.deshmukh@gmail.com',
+      patient_state: 'Delhi (NCT)',
       appointment_date: tomorrow,
       appointment_time: '10:00 AM',
       symptoms: 'Persistent skin allergy and rashes on arms.',
@@ -257,14 +262,14 @@ function seedData() {
   const insertAppt = db.prepare(`
     INSERT INTO appointments (
       reference_no, doctor_id, patient_name, patient_age, patient_gender,
-      patient_phone, patient_email, appointment_date, appointment_time, symptoms, status
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      patient_phone, patient_email, patient_state, appointment_date, appointment_time, symptoms, status
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
 
   for (const appt of sampleAppointments) {
     insertAppt.run(
       appt.reference_no, appt.doctor_id, appt.patient_name, appt.patient_age,
-      appt.patient_gender, appt.patient_phone, appt.patient_email,
+      appt.patient_gender, appt.patient_phone, appt.patient_email, appt.patient_state,
       appt.appointment_date, appt.appointment_time, appt.symptoms, appt.status
     );
   }

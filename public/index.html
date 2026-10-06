@@ -3,13 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AarogyaCare GH | Government & General Hospital Appointment System</title>
+  <title>AarogyaCare GH | Government & General Hospital Appointment Booking System - India</title>
+  <meta name="description" content="Official AarogyaCare Government & General Hospital (GH) appointment booking portal. Consult senior specialists across all 28 States and 8 Union Territories with verified zero-queue OPD slots.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
+  <!-- ==================== TOP EMERGENCY & ANNOUNCEMENT BAR ==================== -->
+  <div class="top-info-bar">
+    <div class="top-info-container">
+      <div class="top-info-left">
+        <span class="top-emergency-badge">🚨 EMERGENCY</span>
+        <span class="top-info-item">National Ambulance: <a href="tel:108">108</a> / <a href="tel:112">112</a></span>
+        <span class="top-info-item">GH Casualty Desk: <a href="tel:1800112999">1800-112-999</a></span>
+      </div>
+      <div class="top-info-right">
+        <span class="top-info-item">⏰ OPD Timings: Mon – Sat (8:00 AM – 8:00 PM)</span>
+        <span class="top-info-item">🏛️ NABH Accredited • Ayushman Bharat PM-JAY Partner</span>
+      </div>
+    </div>
+  </div>
 
   <!-- ==================== SPLASH SCREEN (INITIAL LOADER) ==================== -->
   <div id="splash-screen">
@@ -70,11 +86,19 @@
     <!-- ==================== TAB 1: HOME ==================== -->
     <div id="tab-home" class="tab-pane active">
       <div class="hero">
-        <div class="hero-badge">🏥 24/7 Verified Healthcare Across India • District GH Network</div>
+        <div class="hero-badge">🏥 Verified District GH Medical Network Across India</div>
         <h1 class="hero-title">Book Doctor Consultations at AarogyaCare GH</h1>
         <p class="hero-subtitle">
           Skip long GH OPD queues. Consult India's leading medical specialists from premier medical institutes (AIIMS, CMC, NIMHANS, PGIMER) at AarogyaCare Government & General Hospital (GH) with live slot availability, instant confirmation slips, and smart tracking.
         </p>
+
+        <div class="hero-trust-row">
+          <span class="trust-pill">✓ AIIMS & CMC Certified Doctors</span>
+          <span class="trust-pill">✓ Zero OPD Waiting Lines</span>
+          <span class="trust-pill">✓ All 28 States & 8 UTs Covered</span>
+          <span class="trust-pill">✓ Instant Consultation Slip</span>
+        </div>
+
         <div class="hero-actions">
           <button class="btn-hero" data-tab="booking">
             📅 Book An Appointment
@@ -117,6 +141,40 @@
             <div class="stat-number" id="home-stat-rating">4.9 ★</div>
             <div class="stat-label">Patient Satisfaction</div>
           </div>
+        </div>
+      </div>
+
+      <!-- Why Choose AarogyaCare GH - 4 Feature Cards -->
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Why Choose AarogyaCare GH?</h2>
+          <p class="section-desc">Reliable, transparent, and technology-driven healthcare services designed for India</p>
+        </div>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon-box">👨‍⚕️</div>
+          <h3>Premier Indian Specialists</h3>
+          <p>Consult with seasoned clinicians graduated from AIIMS New Delhi, CMC Vellore, NIMHANS, and PGIMER Chandigarh with verified credentials.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">⏱️</div>
+          <h3>Zero OPD Queue System</h3>
+          <p>Book guaranteed 15-minute consultation slots ahead of time. Arrive just 15 minutes before your visit and bypass general OPD lines.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">🗺️</div>
+          <h3>Pan-India 36 State & UT Network</h3>
+          <p>Connecting patients from all 28 States and 8 Union Territories directly to their nearest District GH facility or specialized tele-clinic.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">🛡️</div>
+          <h3>Instant Consultation Slip</h3>
+          <p>Get a digital OPD registration receipt with unique Reference ID, fee breakdown in Indian Rupees (₹), and live status tracking.</p>
         </div>
       </div>
 
@@ -176,7 +234,7 @@
           <div class="stat-icon-wrap stat-icon-amber">👁️</div>
           <div>
             <strong style="font-size: 1.05rem;">Ophthalmology</strong>
-            <div style="font-size: 0.85rem; color: var(--text-muted);">Sankara Nethralaya eye surgery & retina care</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Eye surgery, cataract & retina care</div>
           </div>
         </div>
         <div class="stat-card" style="cursor: pointer;" onclick="loadDoctorsView(8); switchTab('doctors');">
@@ -189,21 +247,21 @@
       </div>
 
       <!-- 24/7 Emergency & Ambulance Network Banner -->
-      <div style="background: linear-gradient(135deg, #064e3b, #047857); border-radius: var(--radius-lg); padding: 1.6rem 2rem; color: white; margin-bottom: 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.2rem; box-shadow: var(--shadow-md);">
+      <div style="background: linear-gradient(135deg, #064e3b, #047857); border-radius: var(--radius-xl); padding: 1.8rem 2.2rem; color: white; margin-bottom: 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.4rem; box-shadow: var(--shadow-md);">
         <div>
-          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
-            <span style="font-size: 1.4rem;">🚑</span>
-            <strong style="font-size: 1.15rem; letter-spacing: -0.01em;">24x7 Emergency Trauma & Ambulance Service</strong>
+          <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.35rem;">
+            <span style="font-size: 1.5rem;">🚑</span>
+            <strong style="font-size: 1.22rem; letter-spacing: -0.01em;">24x7 Emergency Trauma & Ambulance Service</strong>
           </div>
-          <p style="font-size: 0.88rem; opacity: 0.9; margin: 0;">
+          <p style="font-size: 0.9rem; opacity: 0.92; margin: 0; max-width: 650px;">
             Immediate medical dispatch, ICUs, and 24-hour casualty support across all District GH medical centers in India.
           </p>
         </div>
-        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-          <a href="tel:108" style="background: #ef4444; color: white; text-decoration: none; padding: 0.65rem 1.25rem; border-radius: 8px; font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem; box-shadow: 0 2px 8px rgba(239,68,68,0.3);">
+        <div style="display: flex; gap: 0.85rem; flex-wrap: wrap;">
+          <a href="tel:108" style="background: #ef4444; color: white; text-decoration: none; padding: 0.75rem 1.4rem; border-radius: var(--radius-md); font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem; box-shadow: 0 2px 8px rgba(239,68,68,0.3); font-size: 0.92rem;">
             🚨 Dial 108 (Ambulance)
           </a>
-          <a href="tel:112" style="background: white; color: var(--primary-dark); text-decoration: none; padding: 0.65rem 1.25rem; border-radius: 8px; font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem;">
+          <a href="tel:112" style="background: white; color: var(--primary-dark); text-decoration: none; padding: 0.75rem 1.4rem; border-radius: var(--radius-md); font-weight: 700; display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.92rem;">
             📞 National Helpline 112
           </a>
         </div>
@@ -217,18 +275,18 @@
         </div>
       </div>
 
-      <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.6rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-sm);">
+      <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.8rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-sm);">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 0.6rem;">
           <div style="font-weight: 700; color: var(--primary-dark); font-size: 1.05rem;">
             🇮🇳 Select Any State or UT to Book at Local District GH:
           </div>
-          <span style="font-size: 0.8rem; background: var(--primary-light); color: var(--primary-dark); padding: 0.25rem 0.75rem; border-radius: 9999px; font-weight: 700;">
+          <span style="font-size: 0.8rem; background: var(--primary-light); color: var(--primary-dark); padding: 0.25rem 0.85rem; border-radius: 9999px; font-weight: 700;">
             28 States • 8 Union Territories
           </span>
         </div>
 
-        <div style="margin-bottom: 1rem;">
-          <strong style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem;">
+        <div style="margin-bottom: 1.2rem;">
+          <strong style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.6rem;">
             States (28):
           </strong>
           <div class="filter-pills" id="home-states-pills" style="margin-bottom: 1rem;">
@@ -237,7 +295,7 @@
         </div>
 
         <div>
-          <strong style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.5rem;">
+          <strong style="font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.6rem;">
             Union Territories (8):
           </strong>
           <div class="filter-pills" id="home-uts-pills" style="margin-bottom: 0;">
@@ -285,6 +343,24 @@
         <div>
           <h2 class="section-title">Schedule Doctor Consultation</h2>
           <p class="section-desc">Select medical department, doctor, preferred date, and real-time available slot</p>
+        </div>
+      </div>
+
+      <!-- Visual 3-Step Progress Indicator -->
+      <div class="booking-stepper">
+        <div class="stepper-step active" id="step-ind-1">
+          <div class="stepper-num">1</div>
+          <span>Select Specialist</span>
+        </div>
+        <div class="stepper-arrow">➔</div>
+        <div class="stepper-step" id="step-ind-2">
+          <div class="stepper-num">2</div>
+          <span>Date & Time Slot</span>
+        </div>
+        <div class="stepper-arrow">➔</div>
+        <div class="stepper-step" id="step-ind-3">
+          <div class="stepper-num">3</div>
+          <span>Patient Details</span>
         </div>
       </div>
 
@@ -372,7 +448,7 @@
               <div class="form-row">
                 <div class="form-group">
                   <label class="form-label" for="patient-phone">Mobile Number (India) <span class="req">*</span></label>
-                  <input type="tel" id="patient-phone" class="form-input" placeholder="e.g. 9876543210" required>
+                  <input type="tel" id="patient-phone" class="form-input" placeholder="e.g. 9876543210" pattern="[0-9]{10}" title="Please enter a valid 10-digit Indian phone number" required>
                 </div>
 
                 <div class="form-group">
@@ -473,10 +549,14 @@
                 <span>Hospital Branch:</span>
                 <span>District GH Medical Campus, India</span>
               </li>
+              <li class="summary-item">
+                <span>GH OPD Reg Fee:</span>
+                <span style="color: var(--success); font-weight: 700;">₹0 (Free / Nil)</span>
+              </li>
             </ul>
 
             <div class="summary-total">
-              <span class="total-label">Consultation Fee:</span>
+              <span class="total-label">Total Fee:</span>
               <span class="total-val" id="sum-fee">₹0</span>
             </div>
 
@@ -511,10 +591,16 @@
             🔍 Find Booking
           </button>
         </form>
+
+        <div style="margin-top: 0.85rem; font-size: 0.82rem; color: var(--text-muted); text-align: left; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+          <span>💡 Quick lookup:</span>
+          <button type="button" class="filter-pill" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;" onclick="setLookupQuery('APT-2026-1001')">APT-2026-1001</button>
+          <button type="button" class="filter-pill" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;" onclick="setLookupQuery('9876543210')">9876543210</button>
+        </div>
       </div>
 
       <!-- Lookup Results Container -->
-      <div id="lookup-results-container" style="max-width: 800px; margin: 0 auto;">
+      <div id="lookup-results-container" style="max-width: 820px; margin: 0 auto;">
         <!-- Results or placeholder rendered here -->
       </div>
     </div>
@@ -526,9 +612,14 @@
           <h2 class="section-title">Hospital Administration & Doctor Console</h2>
           <p class="section-desc">Real-time patient bookings, department analytics, status management, and directory control</p>
         </div>
-        <button class="btn-hero" style="font-size: 0.88rem; padding: 0.65rem 1.1rem;" onclick="openAddDoctorModal()">
-          ➕ Add New Doctor
-        </button>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <button class="admin-btn-export" onclick="exportAdminTable()">
+            📥 Export / Print Roster
+          </button>
+          <button class="btn-hero" style="font-size: 0.88rem; padding: 0.65rem 1.1rem;" onclick="openAddDoctorModal()">
+            ➕ Add New Doctor
+          </button>
+        </div>
       </div>
 
       <!-- Admin KPI Stats -->
@@ -583,7 +674,7 @@
           >
         </div>
         <div>
-          <button class="filter-pill" onclick="clearAdminFilters()">Reset Filters</button>
+          <button class="filter-pill" onclick="clearAdminFilters()">Reset</button>
         </div>
       </div>
 
@@ -610,6 +701,85 @@
 
   </main>
 
+  <!-- ==================== HOSPITAL FOOTER ==================== -->
+  <footer class="hospital-footer">
+    <div class="footer-top">
+      <div class="footer-col">
+        <div style="display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.75rem;">
+          <svg width="34" height="34" viewBox="0 0 48 48" fill="none">
+            <rect width="48" height="48" rx="10" fill="#10b981"/>
+            <path d="M24 11V37M11 24H37" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="36" cy="12" r="5" fill="#a7f3d0"/>
+            <text x="36" y="14" font-size="6" font-weight="900" fill="#064e3b" text-anchor="middle" font-family="sans-serif">GH</text>
+          </svg>
+          <strong style="font-size: 1.2rem; color: white;">AarogyaCare GH</strong>
+        </div>
+        <p>
+          AarogyaCare Government & General Hospital (GH) is dedicated to accessible, queue-free, and high-standard multispeciality medical consultations across all 28 States and 8 Union Territories of India.
+        </p>
+        <div class="footer-badges-wrap">
+          <span class="footer-pill-badge">NABH Accredited</span>
+          <span class="footer-pill-badge">ISO 9001:2015</span>
+          <span class="footer-pill-badge">PM-JAY Ayushman Bharat</span>
+          <span class="footer-pill-badge">National Health Portal</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="#" onclick="switchTab('home')">➔ Home Overview</a></li>
+          <li><a href="#" onclick="switchTab('doctors')">➔ GH Specialists Directory</a></li>
+          <li><a href="#" onclick="switchTab('booking')">➔ Book Consultation Slot</a></li>
+          <li><a href="#" onclick="switchTab('lookup')">➔ Track Patient Bookings</a></li>
+          <li><a href="#" onclick="switchTab('admin')">➔ Hospital Admin Console</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Key Specialties</h4>
+        <ul class="footer-links">
+          <li><a href="#" onclick="loadDoctorsView(1); switchTab('doctors');">➔ Interventional Cardiology</a></li>
+          <li><a href="#" onclick="loadDoctorsView(2); switchTab('doctors');">➔ Neurology & Spine Care</a></li>
+          <li><a href="#" onclick="loadDoctorsView(3); switchTab('doctors');">➔ Pediatrics & Neonatology</a></li>
+          <li><a href="#" onclick="loadDoctorsView(4); switchTab('doctors');">➔ Orthopedics & Trauma</a></li>
+          <li><a href="#" onclick="loadDoctorsView(6); switchTab('doctors');">➔ General Medicine & Diabetology</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Emergency & Helpdesk</h4>
+        <div class="footer-contact-item">
+          <span>🚨</span>
+          <div><strong>Ambulance Helpline:</strong> 108 / 112 (24x7 Free)</div>
+        </div>
+        <div class="footer-contact-item">
+          <span>📞</span>
+          <div><strong>GH Trauma Desk:</strong> 1800-112-999 (Toll-Free)</div>
+        </div>
+        <div class="footer-contact-item">
+          <span>✉️</span>
+          <div><strong>Support Email:</strong> appointments@aarogyacare.in</div>
+        </div>
+        <div class="footer-contact-item">
+          <span>📍</span>
+          <div><strong>Central Campus:</strong> District GH Medical Center, India</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-container">
+        <div>
+          © 2026 AarogyaCare GH • Government & General Healthcare Network of India • All Rights Reserved.
+        </div>
+        <div>
+          English Edition • Verified Medical Portal • NABH Clinical Standards
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <!-- ==================== CONFIRMATION MODAL & PRINTABLE SLIP ==================== -->
   <div class="modal-overlay" id="confirmation-modal">
     <div class="modal-content">
@@ -621,8 +791,8 @@
         <div class="receipt-card">
           <div class="receipt-header">
             <!-- Logo inside receipt -->
-            <div style="display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-bottom: 0.5rem;">
-              <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-bottom: 0.4rem;">
+              <svg width="34" height="34" viewBox="0 0 48 48" fill="none">
                 <rect width="48" height="48" rx="10" fill="#059669"/>
                 <path d="M24 11V37M11 24H37" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
                 <circle cx="36" cy="12" r="5.5" fill="#34d399"/>
@@ -631,6 +801,7 @@
               <h2 style="color: var(--primary-dark); font-size: 1.35rem; font-weight: 800; margin: 0;">AarogyaCare GH Medical Center</h2>
             </div>
             <p style="font-size: 0.82rem; color: var(--text-muted);">Official GH Consultation Booking Slip • National Healthcare Services, India</p>
+            <div class="receipt-barcode">||| | |||| | ||||| || | |||</div>
             <div class="receipt-token" id="receipt-token">APT-2026-0000</div>
             <div style="font-size: 0.76rem; color: var(--success); font-weight: 700; text-transform: uppercase;">● Guaranteed Slot Confirmed</div>
           </div>
@@ -656,6 +827,10 @@
             <span id="receipt-specialty">Specialty</span>
           </div>
           <div class="receipt-row">
+            <span>OPD Consultation Room:</span>
+            <span id="receipt-room" style="color: var(--primary-dark); font-weight: 700;">Block A - Room 102</span>
+          </div>
+          <div class="receipt-row">
             <span>Scheduled Date & Time:</span>
             <span id="receipt-date-time" style="color: var(--primary-dark); font-weight: 700;">Date at Slot</span>
           </div>
@@ -665,7 +840,7 @@
           </div>
           <div class="receipt-row" style="border-top: 1px dashed var(--border); padding-top: 0.55rem; margin-top: 0.55rem;">
             <span>Consultation Fee:</span>
-            <span id="receipt-fee" style="color: var(--primary); font-size: 1.2rem; font-weight: 800;">₹0</span>
+            <span id="receipt-fee" style="color: var(--primary); font-size: 1.25rem; font-weight: 800;">₹0</span>
           </div>
           <div class="receipt-row">
             <span>Status:</span>
